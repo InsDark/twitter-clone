@@ -10,6 +10,11 @@ const ProtectRoute = ({ element }) => {
   const setAuth = authStore(state => state.setAuth)
   const localAuth = JSON.parse(localStorage.getItem('credentials'))
   if (!localAuth) return <Navigate to={'/login'} />
+  const {expiration} = localAuth
+  if(expiration <= Date.now()) {
+    localStorage.removeItem('credentials')
+    return <Navigate to={'/login'} />
+  }
   setAuth(localAuth) 
   return element
 }

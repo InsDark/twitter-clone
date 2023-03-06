@@ -4,32 +4,18 @@ import InputPassword from '../components/Form/InputPassword'
 import { formStore } from '../state/form'
 import { authStore } from '../state/auth'
 import { useNavigate } from 'react-router-dom'
+import { getAuth } from '../../api/queries/getAuth'
 const Login = () => {
   const { email, password } = formStore(state => state)
   const { setAuth } = authStore(state => state)
   const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const req = await fetch('http://localhost:8000/graphql', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `query {
-            loginUser (email : "${email}", password : "${password}") {
-              token,
-              expiration,
-              name,
-              userName
-            }
-          }`
-      })
-    })
-    const { data: { loginUser: { token, expiration, name, userName } } } = await req.json()
-    if (!token) {
-      return alert('Invalid login credentials')
-    }
-    setAuth([{ name, userName, email, token, expiration }])
-    localStorage.setItem('credentials', JSON.stringify([{ name, userName, email, token, expiration }]))
+    const res =  await getAuth(email, password)
+    if(!res) {alert('Something went wrong try again')}
+    const {getAuth : userCred}  = res
+    setAuth(userCred)
+    localStorage.setItem('credentials', JSON.stringify(userCred))
     navigate('/home')
   }
   return (

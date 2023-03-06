@@ -1,6 +1,6 @@
-import {create} from 'zustand'
+import { create } from 'zustand'
 
 export const authStore = create((set) => ({
-    auth: [],
-    setAuth: (credentials) => set(() => ({auth: [...credentials]}))
+    auth: {},
+    setAuth: (credentials) => set(() => ({ auth: {credentials }}))
 }))

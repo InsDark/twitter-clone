@@ -7,8 +7,8 @@ import UserInfo from '../components/UserInfo'
 import UserTweets from '../components/UserTweets'
 import { authStore } from '../state/auth'
 const Profile = () => {
-    const { auth } = authStore(state => state)
-    const { userName } = { ...auth[0] }
+    const { auth : {credentials} } = authStore(state => state)
+    const { userName } = credentials
     return (
         <main className='card bg-black text-white min-h-screen'>
             <UserBar />
@@ -22,7 +22,7 @@ const Profile = () => {
                 </div>
                 <UserInfo />
                 <hr className='border-gray-700' />
-                <UserTweets />
+                <UserTweets userName={userName} />
             </section>
             <SideBar />
         </main>

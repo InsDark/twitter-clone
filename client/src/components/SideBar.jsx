@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-
+import {authStore} from '../state/auth'
+import FollowBtn from './Buttons/FollowBtn'
 const SideBar = () => {
   const [toFollow, setToFollow] = useState([])
+  const {auth: {credentials}} = authStore(state => state)
+  const {userName} = credentials
   useEffect(() => {
     const getWhoToFollow = async () => {
       const req = await fetch('http://localhost:8000/graphql', {
@@ -11,7 +14,7 @@ const SideBar = () => {
           query:
             `
           query {
-              randomUsers {
+              randomUsers (except: "${userName}") {
                 name,
                 userName
               }
@@ -39,7 +42,7 @@ const SideBar = () => {
                   <span className='text-gray-500'>@{user.userName}</span>
                 </div>
               </div>
-              <button className='bg-white text-black h-fit rounded-full py-2 px-5 font-semibold'>Follow</button>
+              <FollowBtn followTo={user.userName}/>
             </div>
           )))}
         </div>
