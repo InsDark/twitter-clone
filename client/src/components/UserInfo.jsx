@@ -20,12 +20,12 @@ const UserInfo = () => {
     return (
         <div className='max-w-full'>
             {userExists ?
-                <><img className='w-full h-auto' src="http://placeimg.com/600/200/any" />
+                <><img className='w-full h-auto' src="http://placeimg.com/600/200/animals" />
                     <div className='flex p-4 items-center justify-between'>
-                        <img src="http://placeimg.com/200/200/any" alt="" className='-mt-20 rounded-full border w-1/4 h-auto ' />
+                        <img src="http://placeimg.com/200/200/animals" alt="" className='-mt-20 rounded-full border w-1/4 h-auto ' />
                         {
                             userName == userID ? <button className=' hover:bg-slate-900 text-white border h-fit rounded-full py-2 px-5 font-semibold'>Edit Profile</button> :
-                                <FollowBtn followTo={{userID, name}} style={'border text-white h-fit rounded-full py-2 px-5 font-semibold'} />
+                                <FollowBtn followTo={{userID, userName}} style={'border text-white h-fit rounded-full py-2 px-5 font-semibold'} />
                         }
                     </div>
                     <div className='px-3 pt-1 pb-3'>

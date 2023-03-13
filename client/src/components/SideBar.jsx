@@ -1,35 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import {authStore} from '../state/auth'
 import FollowBtn from './Buttons/FollowBtn'
+import {usersToFollowStore} from '../state/usersToFollow'
+import { getWhoToFollow } from '../../api/queries/getUserToFollow'
 const SideBar = () => {
-  const [toFollow, setToFollow] = useState([])
+  const {toFollow, setToFollow} = usersToFollowStore(state => state)
   const {auth: {credentials}} = authStore(state => state)
   const {userName} = credentials
-  useEffect(() => {
-    const getWhoToFollow = async () => {
-      const req = await fetch('http://localhost:8000/graphql', {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query:
-            `
-          query {
-              randomUsers (except: "${userName}") {
-                name,
-                userName
-              }
-          }
-          `
-        })
-      })
-      const { data: { randomUsers } } = await req.json()
-      if(!randomUsers) return 
+  useEffect( () => {
+    (async( )=> {
+      const {data : {randomUsers} } = await getWhoToFollow(userName)
       setToFollow(randomUsers)
-    }
-    getWhoToFollow()
+    })()
   }, [])
   return (
-    <aside className='m-10'>
+    <aside className='m-10 sticky top-3 h-fit'>
       <div className='bg-gray-900 p-4 rounded-2xl'>
         <h2 className='text-xl font-bold pb-4'>Who to follow</h2>
         <div className='gap-3 flex flex-col'>

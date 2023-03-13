@@ -5,6 +5,7 @@ export const profileStore = create((set) => ({
     tweets: [],
     setUserInfo: (info) => set( () =>({ userInfo: info })),
     setTweets: (tweets) => set(() => ({ tweets })) ,   
-    setUserExist: (exist) => set({userExists: exist}) 
+    setUserExist: (exist) => set({userExists: exist}),
+    setFollowers: (newFollowers => set((state) => ({userInfo : {...state.userInfo, followers: newFollowers}})))
 })
 )
