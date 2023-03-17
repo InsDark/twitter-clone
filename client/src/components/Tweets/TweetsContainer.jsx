@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { getTweets } from '../../api/queries/getTweets'
-import { authStore } from '../state/auth'
+import { getTweets } from '../../../api/queries/getTweets'
+import { authStore } from '../../state/auth'
 import Tweet from './Tweet'
 const TweetsContainer = () => {
   const [tweets, setTweets] = useState([])

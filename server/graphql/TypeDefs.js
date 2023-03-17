@@ -49,6 +49,7 @@ type Notification {
 type Query {
     getAuth (email: String, password: String): AuthCred,
     getTweets (except : String) : [Tweet],
+    getBookmarkedTweets (userName: String) : [Tweet],
     user (userName: String): User,
     randomUsers (except: String): [User],
     loginUser (email: String, password: String): User,

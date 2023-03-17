@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
-import BookmarkBtn from '../components/Buttons/BookmarkBtn'
-import {authStore} from '../state/auth'
-import LikeBtn from './Buttons/LikeBtn'
+import BookmarkBtn from '../Buttons/BookmarkBtn'
+import {authStore} from '../../state/auth'
+import LikeBtn from '../Buttons/LikeBtn'
 import { Link } from 'react-router-dom'
 const Tweet = ({ content : {content, date, maker, likes, _id, bookmarks} }) => {
     const {credentials : {userName}} = authStore(state => state.auth)

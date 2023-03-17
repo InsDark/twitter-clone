@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { profileStore } from '../state/profileInfo'
-import Tweet from '../components/Tweet'
+import { profileStore } from '../../state/profileInfo'
+import Tweet from './Tweet'
 const UserTweets = ( {userName} ) => {
   const { tweets, setTweets, userExists } = profileStore(state => state)
   useEffect(() => {

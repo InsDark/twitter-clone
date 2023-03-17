@@ -3,6 +3,7 @@ import {authStore} from '../state/auth'
 import FollowBtn from './Buttons/FollowBtn'
 import {usersToFollowStore} from '../state/usersToFollow'
 import { getWhoToFollow } from '../../api/queries/getUserToFollow'
+import UserSearcher from './UserSearcher'
 const SideBar = () => {
   const {toFollow, setToFollow} = usersToFollowStore(state => state)
   const {auth: {credentials}} = authStore(state => state)
@@ -14,7 +15,8 @@ const SideBar = () => {
     })()
   }, [])
   return (
-    <aside className='m-10 sticky top-3 h-fit'>
+    <aside className='m-10 sticky top-3 h-fit flex flex-col gap-2'>
+      <UserSearcher/>
       <div className='bg-gray-900 p-4 rounded-2xl'>
         <h2 className='text-xl font-bold pb-4'>Who to follow</h2>
         <div className='gap-3 flex flex-col'>

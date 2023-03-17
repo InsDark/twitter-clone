@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import SideBar from '../components/SideBar'
 import UserBar from '../components/UserBar'
 import UserInfo from '../components/UserInfo'
-import UserTweets from '../components/UserTweets'
+import UserTweets from '../components/Tweets/UserTweets'
 const Profile = () => {
     const {userID} = useParams()
     const navigate = useNavigate()

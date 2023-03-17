@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { createTweet } from '../../api/mutations/createTweet'
-import {authStore} from '../state/auth'
+import { createTweet } from '../../../api/mutations/createTweet'
+import {authStore} from '../../state/auth'
 
 const TweetMaker = () => {
     const {credentials : {userName} } = authStore(state => state.auth)

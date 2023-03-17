@@ -54,6 +54,10 @@ export const resolvers = {
         userTweets: async (_, { userName }) => {
             const Tweets = await db.collection('tweets').find({ maker: userName }).limit(10).toArray()
             return Tweets
+        },
+        getBookmarkedTweets: async (_, { userName }) => {
+            const res = await db.collection('tweets').find({bookmarks: userName}).toArray()
+            return res
         }
 
     },

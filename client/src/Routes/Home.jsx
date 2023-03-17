@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { getUserData } from '../../api/queries/getUserData'
 import SideBar from '../components/SideBar'
-import TweetMaker from '../components/TweetMaker'
+import TweetMaker from '../components/Tweets/TweetMaker'
 import {authStore} from '../state/auth'
 import UserBar from '../components/UserBar'
 import userDataStore from '../state/userData'
-import TweetsContainer from '../components/TweetsContainer'
+import TweetsContainer from '../components/Tweets/TweetsContainer'
 const Home = () => {
     const {credentials: {userName}} = authStore(state => state.auth)
     const {setName} = userDataStore(state => state) 
