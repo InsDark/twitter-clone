@@ -6,22 +6,20 @@ import InputPassword from '../components/Form/InputPassword'
 import InputUserName from '../components/Form/InputUserName'
 import { formStore } from '../state/form'
 import { authStore } from '../state/auth'
+import { FaTwitter } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 const Register = () => {
     const navigate = useNavigate()
     const setAuth = authStore(state => state.setAuth)
-    const { isValidName, isValidPassword, isValidUserName, isValidEmail, name, password, email, userName } = formStore(state => state)
+    const { name, password, email, userName } = formStore(state => state)
     const [validateMsg, setValidateMsg] = useState('')
-    const [display, setDisplay] = useState(false)
     const handleSubmit = async (e) => {
-        setDisplay(true)
         e.preventDefault();
-        if (!isValidEmail || !isValidUserName || !isValidPassword || !isValidName) {
+        if (!email || !userName || !password || !name) {
             setValidateMsg('You should check all the required fields to continue')
             return
         }
         setValidateMsg('')
-        setDisplay(false)
         const req = await fetch('http://localhost:8000/graphql', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -33,15 +31,18 @@ const Register = () => {
                         email,
                         userName,
                         token,
-                        expiration
+                        expiration,
+                        error
                     }
                 }`
 
             })
         })
-        const { data: { createUser: { token, expiration } } } = await req.json()
+        const res = await req.json()
+        console.log(res)
+        const {data : {createUser: {error, token, expiration}}} = res 
         if (!token) {
-            return alert('something went wrong try again')
+            return setValidateMsg(error)
         }
         setAuth([{ name, userName, email, token, expiration }])
         localStorage.setItem('credentials', JSON.stringify([{ name, userName, email, token, expiration }]))
@@ -49,17 +50,20 @@ const Register = () => {
 
     }
     return (
-        <main className="bg-gray-700 text-white h-screen flex items-center justify-center">
-            <form onSubmit={handleSubmit} className='flex flex-col bg-gray-900 p-5 rounded gap-4 w-fit min-w-fit' >
-                <h1 className='text-2xl font-bold text-center'>Sign up</h1>
-                <InputName />
-                <InputUserName />
-                <InputEmail />
-                <InputPassword />
-                <input type="submit" value="Sign Up" className=' cursor-pointer bg-slate-700 p-2 rounded' />
-                {!display ? null : <h2 className={!display ? null : 'bg-red-700 text-white p-2'}>{validateMsg}</h2>}
-            </form>
-        </main>
+        <div className="bg-gray-700 text-white h-screen flex items-center justify-center">
+            <main className=' w-[25rem] items-center flex flex-col bg-black p-5 rounded gap-4' >
+                <FaTwitter size={40} className='m-auto' />
+                <h1 className='text-2xl font-bold text-center'>Sign up in to Twitter</h1>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+                    <InputName />
+                    <InputUserName />
+                    <InputEmail />
+                    <InputPassword />
+                    <input type="submit" value="Sign Up" className='bg-blue-500 cursor-pointer font-bold rounded-full p-2' />
+                </form>
+                <span className='text-red-600 text-sm'>{validateMsg}</span>
+            </main>
+        </div>
     )
 }
 

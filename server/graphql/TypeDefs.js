@@ -15,6 +15,7 @@ input BookmarkInfo {
     type: String
 }
 type User { 
+    error: String,
     name: String,
     email: String,
     userName: String,
@@ -22,7 +23,7 @@ type User {
     expiration: String,
     followers: [Follows],
     following: [Follows]
-    }
+    },
 type Tweet {
     content: String,
     maker: String,

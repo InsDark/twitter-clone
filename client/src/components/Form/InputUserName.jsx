@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import { formStore } from './../../state/form'
 const InputUserName = () => {
-    const { userName, updateUserName, validUserName, isValidUserName } = formStore(state => state)
+    const { userName, updateUserName } = formStore(state => state)
+    const [validUserName, setValidUserName] = useState(null)
     const [userNameMsg, setUserNameMsg] = useState('')
-    const [display, setDisplay] = useState('')
     const checkUserName = async (e) => {
-        setDisplay(true)
+        setValidUserName(false)
         updateUserName(e.target.value)
         if (e.target.value.match(' ')) {
-            validUserName(false)
             return setUserNameMsg('The userName shoud not contain blank spaces')
         }
         if (!e.target.value.trim()) {
             setUserNameMsg('The Password should not be empty')
-            return validUserName(false)
+            return
         }
         const req = await fetch('http://localhost:8000/graphql', {
             method: 'POST',
@@ -32,18 +31,16 @@ const InputUserName = () => {
         const { data: { user } } = await req.json()
         if (!user) {
             setUserNameMsg('The userName is okay')
-            return validUserName(true)
+            return setValidUserName(true)
         }
         setUserNameMsg('The userName is already in use')
-        return validUserName(false)
+        return setValidUserName(false)
     }
     return (
-        <div className='flex flex-col gap-2'>
-            <div className='flex gap-2 items-center justify-between'>
-                <label htmlFor="user-userName" >UserName:  </label> <input type="text" value={userName} onChange={checkUserName} name='user-userName' className='outline-none rounded pl-3 bg-slate-700 p-1' />
-            </div>
-            {!display ? null : <h2 className={isValidUserName ? 'bg-green-700 p-2 text-center' : ' bg-red-800 p-2 text-center '}>{userNameMsg}</h2> }
-            
+        <div className='flex flex-col'>
+            <input placeholder='UserName' value={userName} name='user-name' onChange={checkUserName} type="text" className={`w-full outline-none border-2 rounded pl-3 p-3 border-gray-500 bg-black ${validUserName == null ? '' : (!validUserName ? "border-red-600" : ' border-blue-600')}`} />
+            <span className='text-red-600 text-sm'>{validUserName || userNameMsg}</span>
+
         </div>
     )
 }

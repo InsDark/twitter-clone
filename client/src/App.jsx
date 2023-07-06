@@ -6,6 +6,7 @@ import Login from './Routes/Login'
 import Profile from './Routes/Profile'
 import Register from './Routes/Register'
 import { authStore } from './state/auth'
+import Main from './Routes/Main'
 const ProtectRoute = ({ element }) => {
   const setAuth = authStore(state => state.setAuth)
   const localAuth = JSON.parse(localStorage.getItem('credentials'))
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path='/home' element={<ProtectRoute element={<Home />} />} />
         <Route path='/bookmarks' element={< ProtectRoute element={<Bookmarks />} />} />
+        <Route path='/' element={<Main/>}/>
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/:userID' element={< ProtectRoute element={<Profile />} />} />

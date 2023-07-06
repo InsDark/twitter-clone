@@ -87,9 +87,9 @@ export const resolvers = {
                 const newUser = { name, userName, passwordHash, email, following: [], followers: [] }
                 await db.collection('users').insertOne(newUser)
                 await db.collection('access_tokens').insertOne(access_token)
-                return { ...newUser, access_token }
+                return { ...newUser, ...access_token }
             }
-            return { userName: `The userName ${userName} already exists` }
+            return { error: `The userName ${userName} already exists` }
 
         },
         async deleteUser(_, { userName }) {
