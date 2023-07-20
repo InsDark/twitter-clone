@@ -13,6 +13,5 @@ export const createTweet = async (tweetInput) => {
             `, variables: {content, date, maker} ,} )
     })
     const res = await req.json()
-    console.log(res)
     return res
 }

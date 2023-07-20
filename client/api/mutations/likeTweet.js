@@ -10,5 +10,4 @@ export const likeTweet = async({type, userName, _id}) => {
         }`})
     })
     const res = await req.json()
-    console.log(res)
 }

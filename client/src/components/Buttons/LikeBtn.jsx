@@ -23,7 +23,7 @@ const LikeBtn = ({info : [likes, userName, _id]}) => {
         likeTweet({type: 'like', userName, _id})
     }
   return (
-<button onClick={handleLike} className={`flex items-center gap-2 ${isLiked ? 'text-red-600' : ""}`}><FaHeart />{likes.length}</button>
+<button onClick={handleLike} className={`hover:text-red-600 flex items-center gap-2 ${isLiked ? 'text-red-600' : ""}`}><FaHeart />{likes.length}</button>
   )
 }
 

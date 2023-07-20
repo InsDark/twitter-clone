@@ -15,7 +15,7 @@ const SideBar = () => {
     })()
   }, [])
   return (
-    <aside className='m-10 sticky top-3 h-fit flex flex-col gap-2'>
+    <aside className=' hidden m-10 sticky top-3 h-fit md:flex flex-col gap-2'>
       <UserSearcher/>
       <div className='bg-gray-900 p-4 rounded-2xl'>
         <h2 className='text-xl font-bold pb-4'>Who to follow</h2>
@@ -23,7 +23,7 @@ const SideBar = () => {
           {toFollow.map((user => (
             <div key={user.userName} className='flex gap-2 justify-between items-center'>
               <div className='flex  gap-2 items-center'>
-                <img className='w-20 h-20 rounded-full' src="https://placeimg.com/200/200/animals" alt="" />
+                <img className='w-10 h-15 ' src="./../../assets/defaultProfilePicture.png" alt="" />
                 <div>
                   <h3 className='font-semibold'>{user.name}</h3>
                   <span className='text-gray-500'>@{user.userName}</span>

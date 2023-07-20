@@ -11,15 +11,16 @@ const Home = () => {
     const {setName} = userDataStore(state => state) 
     useEffect(() => {
         (async()=> {
+            document.title = 'Home / Twitter'
            const res = await getUserData(userName)
            const {data : {user: {name}}} = res
            setName(name)
         })()
     },[])
     return (
-        <main className='card bg-black text-white min-h-screen'>
+        <main className='md:card mobile overflow-hidden bg-black text-white min-h-screen'>
             <UserBar/>
-            <section className='border border-gray-700 w-full '>
+            <section className='border max-w-screen  border-gray-700  '>
                 <h2 className='text-2xl font-bold'>Home</h2>
                 <TweetMaker/>
                 <TweetsContainer/>

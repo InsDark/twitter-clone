@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {FaBookmark} from 'react-icons/fa'
 import {bookmarkTweet} from '../../../api/mutations/bookmarkTweet'
 const BookmarkBtn = ({info: [userName, _id, bookmarks]}) => {
+    if(!bookmarks) bookmarks = []
     const [isBookmarked, setIsBookmarked] = useState(false)
     const getIsBookmarked = (liker) => {
         return liker == userName
@@ -23,7 +24,7 @@ const BookmarkBtn = ({info: [userName, _id, bookmarks]}) => {
         bookmarkTweet({type: 'bookmark', userName, _id})
     }
   return (
-    <button onClick={bookmark} className={`flex items-center gap-2 ${isBookmarked ? "text-green-500" : null }`}><FaBookmark />{bookmarks.length}</button>
+    <button onClick={bookmark} className={`hover:text-green-600 flex items-center gap-2 ${isBookmarked && "text-green-600" }`}><FaBookmark />{bookmarks.length}</button>
   )
 }
 

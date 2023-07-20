@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await getAuth(email, password)
-    if (!res) { alert('Something went wrong try again') }
+    if (!res.getAuth)  return alert('The credentials are not correct') 
     const { getAuth: userCred } = res
     setAuth(userCred)
     localStorage.setItem('credentials', JSON.stringify(userCred))

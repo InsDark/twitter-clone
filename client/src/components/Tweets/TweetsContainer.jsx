@@ -14,7 +14,7 @@ const TweetsContainer = () => {
   }, [])
   const { credentials: { userName } } = authStore(state => state.auth)
   return (
-    <div className='p-4 flex flex-col gap-3'>{tweets.length > 0 ? tweets.map((tweet) => <Tweet key={tweet._id} content={tweet}/> 
+    <div className=' flex flex-col gap-3'>{tweets.length > 0 ? tweets.map((tweet) => <Tweet key={tweet._id} content={tweet}/> 
   ) : "bruh no tweets"}</div>
   )
 }

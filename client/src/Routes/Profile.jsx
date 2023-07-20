@@ -9,7 +9,7 @@ const Profile = () => {
     const {userID} = useParams()
     const navigate = useNavigate()
     return (
-        <main className='card bg-black text-white min-h-screen'>
+        <main className='md:card mobile bg-black text-white min-h-screen'>
             <UserBar />
             <section className='border border-gray-700 w-full'>
                 <div className='flex bg-black items-center gap-10 px-5 py-1 sticky top-0'>
