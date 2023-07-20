@@ -1,10 +1,23 @@
-import {MongoClient} from 'mongodb'
+
+import {MongoClient, ServerApiVersion} from 'mongodb'
 const connectDB = async( ) => {
-    const client = new MongoClient('mongodb://127.0.0.1:27017')
-    await client.connect()
-    console.log('The db connection is established')
-    const db = client.db('twitter')
-    return db
+    try {
+
+        const client = new MongoClient(process.env.MONGODB_URI, {
+            serverApi: {
+                version: ServerApiVersion.v1,
+                strict: true,
+                deprecationErrors: true
+            }
+        })
+        await client.connect()
+        console.log('The db connection is established')
+        const db = client.db('twitter')
+        return db
+    } catch (e)  {
+        console.log(e)
+        return e
+    }
 }
 export const db = await connectDB()
 
