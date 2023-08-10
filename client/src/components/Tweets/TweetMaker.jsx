@@ -32,7 +32,8 @@ const TweetMaker = () => {
 
             }} className=' flex flex-col gap-2 w-full resize-none outline-none bg-black text-white ' >
                 <div className='flex gap-4'>
-                    <img src="./../../../assets/defaultProfilePicture.png" className='w-11 h-9' />
+                    
+                    <img src={`https://api.dicebear.com/6.x/bottts/svg?seed=${userName}&backgroundColor=000000`} className='w-11 h-9' alt={`${userName}-profile-picture`} />
                     <textarea cols={10} rows={rows} onChange={handleChange} placeholder="What's happening?" value={tweet} name='tweet-content' ref={tweetContent} className='outline-none  border-none bg-black max-w-[10] text-xl w-full  text-white' />
                 </div>
                 <div className='items-center flex justify-end gap-4'>

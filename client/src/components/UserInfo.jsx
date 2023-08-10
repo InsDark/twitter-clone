@@ -20,10 +20,11 @@ const UserInfo = () => {
     return (
         <div className='max-w-full'>
             {userExists ?
-                <><img className='w-full h-auto' src="http://via.placeholder.com/600x200" />
+                <>
+                    <img className='w-full h-auto' src="http://via.placeholder.com/600x200" />
                     <div className='flex p-4 items-center justify-between'>
                         <div className='w-[10rem] h-[10rem] rounded-full border-4 flex justify-center items-center border-slate-900  overflow-hidden -mt-20'>
-                            <img src="./../../assets/defaultProfilePicture.png" alt="user-picture" className=' h-full w-full ' />
+                            <img src={`https://api.dicebear.com/6.x/bottts/svg?seed=${userName}&backgroundColor=000000`} alt={`${userName}-profile-picture`} />
 
                         </div>
                         {

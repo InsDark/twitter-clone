@@ -24,7 +24,7 @@ const UserBar = () => {
             </Link>
             <button className='bg-blue-500 justify-center flex rounded-full text-xl p-2'><span className='hidden md:block'>Tweet</span><span className='md:hidden'><FaPlus/></span></button>
             <div className='flex gap-3 hover:bg-gray-900 cursor-pointer rounded-full min-w-fit  items-center p-2'>
-                <img className=' w-10 h-15 ' src="./../../assets/defaultProfilePicture.png" alt="" />
+                <img className=' w-10 h-15 ' src={`https://api.dicebear.com/6.x/bottts/svg?seed=${userName}`} alt={`${userName}-profile-picture`} />
                 <div className='w-fit hidden md:block'>
                     <p className='text-base'> {name}</p>
                     <p className='text-base text-gray-500'>@{userName}</p>
