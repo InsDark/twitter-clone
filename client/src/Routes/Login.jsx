@@ -13,6 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await getAuth(email, password)
+    if(res.getAuth.message) return alert(res.getAuth.message)
     if (!res.getAuth)  return alert('The credentials are not correct') 
     const { getAuth: userCred } = res
     setAuth(userCred)

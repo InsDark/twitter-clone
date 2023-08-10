@@ -3,6 +3,7 @@ import { FaTwitter } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 const Main = () => {
+    document.title = "Welcome to Twitter!!"
     return (
         <div className='grid grid-cols-2 bg-black'>
             <div className='flex items-center justify-center'>

@@ -35,7 +35,8 @@ type Tweet {
 type AuthCred {
     token: String,
     expiration: String,
-    userName: String
+    userName: String,
+    message: String
 }
 input TweetInfo {
     _id: ID!,

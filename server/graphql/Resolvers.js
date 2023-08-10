@@ -4,15 +4,21 @@ import { ObjectId } from "mongodb"
 export const resolvers = {
     Query: {
         getAuth: async (_, { email, password }) => {
-            const userDB = await db.collection('users').findOne({ email })
-            if (!userDB) return
-            const { passwordHash, userName } = userDB
-            const validPass = compareSync(password, passwordHash)
-            if (!validPass) return
-            const token = hashSync(`${passwordHash}${email}`, 10)
-            const expiration = Date.now() + 43200000
-            await db.collection('tokens').insertOne({ token, expiration })
-            return { token, expiration, userName }
+            try{
+
+                const userDB = await db.collection('users').findOne({ email })
+                if (!userDB) return {message: 'The user doesnt exist'}
+                const { passwordHash, userName } = userDB
+                const validPass = compareSync(password, passwordHash)
+                if (!validPass) return {message: 'The credentials are not valid'}
+                const token = hashSync(`${passwordHash}${email}`, 10)
+                const expiration = Date.now() + 43200000
+                await db.collection('tokens').insertOne({ token, expiration })
+                return { token, expiration, userName }
+            } catch (e) {
+                console.log(e)
+                return {error: e}
+            }
         },
         user: async (_, args) => {
             const userResponse = await db.collection('users').find({ userName: args.userName }).toArray()

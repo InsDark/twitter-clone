@@ -7,7 +7,8 @@ export const getAuth = async (email, password) => {
                 getAuth (email: "${email}", password: "${password}")  {
                 token,
                 expiration,
-                userName
+                userName,
+                message
             }
         }`})
     })
