@@ -8,7 +8,9 @@ import { formStore } from '../state/form'
 import { authStore } from '../state/auth'
 import { FaTwitter } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { createUser } from '../../api/mutations/createUser'
 const Register = () => {
+    document.title = 'Register'
     const navigate = useNavigate()
     const setAuth = authStore(state => state.setAuth)
     const { name, password, email, userName } = formStore(state => state)
@@ -20,26 +22,7 @@ const Register = () => {
             return
         }
         setValidateMsg('')
-        const req = await fetch('http://localhost:8000/graphql', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                query:
-                    `mutation {
-                    createUser(name:" ${name}", email: "${email}", password: "${password}", userName: "${userName}"){
-                        name,
-                        email,
-                        userName,
-                        token,
-                        expiration,
-                        error
-                    }
-                }`
-
-            })
-        })
-        const res = await req.json()
-        console.log(res)
+        const res = await createUser({name, email, userName, password})
         const {data : {createUser: {error, token, expiration}}} = res 
         if (!token) {
             return setValidateMsg(error)
@@ -54,7 +37,7 @@ const Register = () => {
             <main className=' w-[25rem] items-center flex flex-col bg-black p-5 rounded gap-4' >
                 <FaTwitter size={40} className='m-auto' />
                 <h1 className='text-2xl font-bold text-center'>Sign up in to Twitter</h1>
-                <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-3 w-full px-6'>
                     <InputName />
                     <InputUserName />
                     <InputEmail />

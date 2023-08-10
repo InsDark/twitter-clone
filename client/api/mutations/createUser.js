@@ -1,0 +1,23 @@
+export const createUser = async ({name, email, userName, password}) => {
+
+    const req = await fetch('https://twitter-clone-ujkp.onrender.com/graphql', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            query:
+                `mutation {
+                    createUser(name:" ${name}", email: "${email}", password: "${password}", userName: "${userName}"){
+                        name,
+                        email,
+                        userName,
+                        token,
+                        expiration,
+                        error
+                    }
+                }`
+
+        })
+    })
+    const res = await req.json()
+    return res
+}

@@ -6,7 +6,10 @@ import { authStore } from '../state/auth'
 import { useNavigate } from 'react-router-dom'
 import { getAuth } from '../../api/queries/getAuth'
 import { FaTwitter } from 'react-icons/fa'
+import {useDebounce} from 'use-debounce'
+
 const Login = () => {
+  document.title = 'Login'
   const { email, password } = formStore(state => state)
   const { setAuth } = authStore(state => state)
   const navigate = useNavigate()

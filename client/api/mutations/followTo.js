@@ -1,5 +1,5 @@
 export const followTo = async ( from, userToFollow, type) => {
-    const req = await fetch(`http://localhost:8000/graphql`, {
+    const req = await fetch(`https://twitter-clone-ujkp.onrender.com/graphql`, {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({query :  

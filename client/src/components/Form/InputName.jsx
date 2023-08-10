@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { formStore } from './../../state/form'
+import { useDebouncedCallback } from 'use-debounce'
 const InputName = () => {
     const { name, updateName } = formStore(state => state)
 
     const [validName, setValidName] = useState(null)
     const [nameMsg, setNameMsg] = useState('')
-    const checkName = (e) => {
+
+    const checkName = useDebouncedCallback((e) => {
         updateName(e.target.value)
         setValidName(false)
         if (e.target.value.startsWith(' ')) {
@@ -19,11 +21,10 @@ const InputName = () => {
             setNameMsg('The name is okay')
             setValidName(true)
         }
-
-    }
+    }, 1000)
     return (
         <div className='flex flex-col '>
-            <input placeholder='Name' value={name} name='user-name' onChange={checkName} type="text" className={`w-full outline-none border-2 rounded pl-3 p-3 border-gray-500 bg-black ${validName == null ? '' : (!validName ? "border-red-600": ' border-blue-600')  }`} />
+            <input placeholder='Name'  name='user-name' onChange={(e) => checkName(e)} type="text" className={`w-full outline-none border-2 rounded pl-3 p-3 border-gray-500 bg-black ${validName == null ? '' : (!validName ? "border-red-600" : ' border-blue-600')}`} />
             <span className='text-red-600 text-sm'>{validName || nameMsg}</span>
         </div>
     )
