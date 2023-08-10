@@ -53,7 +53,7 @@ export const resolvers = {
             const token = hashSync(`${userName}${email}`, 12)
             const expiration = Date.now() + 43200000
             const access_token = { token, expiration }
-            await db.collection('access_tokens').insertOne(access_token)
+            await db.collection('tokens').insertOne(access_token)
             return { email: email, ...access_token, name, userName }
 
         },
@@ -63,6 +63,11 @@ export const resolvers = {
         },
         getBookmarkedTweets: async (_, { userName }) => {
             const res = await db.collection('tweets').find({bookmarks: userName}).toArray()
+            return res
+        },
+        getToken: async (_, {token}) => {
+            const res = await db.collection('tokens').find({token})
+            console.log(res)
             return res
         }
 
@@ -92,7 +97,7 @@ export const resolvers = {
                 const access_token = { token, expiration }
                 const newUser = { name, userName, passwordHash, email, following: [], followers: [] }
                 await db.collection('users').insertOne(newUser)
-                await db.collection('access_tokens').insertOne(access_token)
+                await db.collection('tokens').insertOne(access_token)
                 return { ...newUser, ...access_token }
             }
             return { error: `The userName ${userName} already exists` }

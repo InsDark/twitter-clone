@@ -55,7 +55,8 @@ type Query {
     user (userName: String): User,
     randomUsers (except: String): [User],
     loginUser (email: String, password: String): User,
-    userTweets (userName: String): [Tweet]
+    userTweets (userName: String): [Tweet],
+    getToken (token: String) : AuthCred
 }
 
 type Mutation {
