@@ -3,7 +3,6 @@ import { createTweet } from '../../../api/mutations/createTweet'
 import { authStore } from '../../state/auth'
 import { toastStore } from '../../state/toast'
 import {useDebouncedCallback} from 'use-debounce'
-import {ToastContainer} from 'react-toastify'
 const TweetMaker = () => {
     const { credentials: { userName } } = authStore(state => state.auth)
     const [tweet, setTweet] = useState('')
@@ -31,6 +30,7 @@ const TweetMaker = () => {
                     setTweet('')
                     setTweetLng(0)
                     toast.success('Twitter released!!');
+                    e.target.reset()
                 }
 
 

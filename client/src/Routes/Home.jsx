@@ -6,7 +6,7 @@ import { authStore } from '../state/auth'
 import UserBar from '../components/UserBar'
 import userDataStore from '../state/userData'
 import TweetsContainer from '../components/Tweets/TweetsContainer'
-import { ToastContainer, toast } from 'react-toastify'
+import {  toast } from 'react-toastify'
 import { toastStore } from '../state/toast'
 
 const Home = () => {

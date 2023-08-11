@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import {likeTweet} from '../../../api/mutations/likeTweet'
+
 const LikeBtn = ({info : [likes, userName, _id]}) => {
     const [isLiked, setIsLiked] = useState(false)
     useEffect( () => {

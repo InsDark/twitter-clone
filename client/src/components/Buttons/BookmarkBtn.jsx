@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {FaBookmark} from 'react-icons/fa'
 import {bookmarkTweet} from '../../../api/mutations/bookmarkTweet'
+
 const BookmarkBtn = ({info: [userName, _id, bookmarks]}) => {
+    console.log(bookmarks)
     if(!bookmarks) bookmarks = []
     const [isBookmarked, setIsBookmarked] = useState(false)
     const getIsBookmarked = (liker) => {

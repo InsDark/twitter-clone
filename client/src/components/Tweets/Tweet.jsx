@@ -9,7 +9,7 @@ const Tweet = ({ content: { content, date, maker, likes, _id, bookmarks } }) => 
     return (
         <div className="flex flex-col border-b border-gray-600 gap-2 p-4">
             <div className=' flex gap-4 items-center pb-2 p-3'>
-                <img src="./../../../assets/defaultProfilePicture.png" className='w-10 h-auto' alt="" />
+                <img src={`https://api.dicebear.com/6.x/bottts/svg?seed=${maker}`} className='w-10 h-auto' alt="" />
                 <Link to={`/${maker}`} className='font-bold hover:underline text-xl'>{maker}</Link> | <span className='text-gray-400'>{moment(parseInt(date)).fromNow()}</span>
             </div>
             <p className='px-3'>{content}</p>

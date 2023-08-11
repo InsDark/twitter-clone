@@ -25,7 +25,7 @@ const SideBar = () => {
           {toFollow.map((user => (
             <div key={user.userName} className='flex gap-2 justify-between items-center'>
               <div className='flex  gap-2 items-center'>
-                <img className='w-10 h-15 ' src={`https://api.dicebear.com/6.x/bottts/svg?seed=${user.userName}`} alt="" />
+                <img className='w-10 h-15 ' src={`https://api.dicebear.com/6.x/bottts/svg?seed=${user.userName}`} alt={`${user.userName}-profilePicture`} />
                 <div>
                   <h3 className='font-semibold'>{user.name}</h3>
                   <span className='text-gray-500'>@{user.userName}</span>
