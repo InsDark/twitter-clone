@@ -66,8 +66,7 @@ export const resolvers = {
             return res
         },
         getToken: async (_, {token}) => {
-            const res = await db.collection('tokens').find({token})
-            console.log(res)
+            const res = await db.collection('tokens').findOne({token})
             return res
         }
 
