@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express'
 export const typeDefs = gql`
 scalar Follows,
 scalar Likes,
+
 input  TweetInput {
     content: String,
     date: String,
@@ -14,6 +15,7 @@ input BookmarkInfo {
     _id : String,
     type: String
 }
+
 type User { 
     error: String,
     name: String,
@@ -24,6 +26,7 @@ type User {
     followers: [Follows],
     following: [Follows]
     },
+
 type Tweet {
     content: String,
     maker: String,
@@ -32,24 +35,26 @@ type Tweet {
     likes: [Likes],
     bookmarks : [Likes]
 }
+
 type AuthCred {
     token: String,
     expiration: String,
     userName: String,
     message: String
 }
+
 input TweetInfo {
     _id: ID!,
     userName: String,
     type: String
 }
+
 type Notification {
     status: String,
     message: String
 }
 
 type Query {
-    getAuth (email: String, password: String): AuthCred,
     getTweets (except : String) : [Tweet],
     getBookmarkedTweets (userName: String) : [Tweet],
     user (userName: String): User,

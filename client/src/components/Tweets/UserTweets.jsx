@@ -5,7 +5,7 @@ const UserTweets = ( {userName} ) => {
   const { tweets, setTweets, userExists } = profileStore(state => state)
   useEffect(() => {
     const getUserTweets = async () => {
-      const req = await fetch(`https://twitter-clone-ujkp.onrender.com/graphql`, {
+      const req = await fetch(import.meta.env.VITE_SERVER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

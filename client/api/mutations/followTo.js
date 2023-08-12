@@ -1,9 +1,13 @@
-export const followTo = async ( from, userToFollow, type) => {
-    const req = await fetch(`https://twitter-clone-ujkp.onrender.com/graphql`, {
+export const followTo = async (from, userToFollow, type) => {
+    const req = await fetch(import.meta.env.VITE_SERVER_URL, {
         method: 'POST',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({query :  
-            ` mutation {
+        headers: {
+            "Content-Type": "application/json", 
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            query:
+                ` mutation {
                 followTo(from: "${from}", to: "${userToFollow}", type: "${type}") {
                     message,
                     status

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { formStore } from './../../state/form'
 import { useDebouncedCallback } from 'use-debounce'
-const InputPassword = () => {
+const InputPassword = ({validate}) => {
 
     const {  updatePassword } = formStore(state => state)
     const [validPassword, setValidPassword] = useState(null)

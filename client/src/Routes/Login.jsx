@@ -1,26 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InputEmail from '../components/Form/InputEmail'
 import InputPassword from '../components/Form/InputPassword'
 import { formStore } from '../state/form'
 import { authStore } from '../state/auth'
 import { useNavigate } from 'react-router-dom'
-import { getAuth } from '../../api/queries/getAuth'
 import { FaTwitter } from 'react-icons/fa'
-import {useDebounce} from 'use-debounce'
+import { loginUser } from '../../api/queries/loginUser'
 
 const Login = () => {
   document.title = 'Login'
   const { email, password } = formStore(state => state)
   const { setAuth } = authStore(state => state)
+  const [error, setError] = useState()
   const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await getAuth(email, password)
-    if(res.getAuth.message) return alert(res.getAuth.message)
-    if (!res.getAuth)  return alert('The credentials are not correct') 
-    const { getAuth: userCred } = res
-    setAuth(userCred)
-    localStorage.setItem('credentials', JSON.stringify(userCred))
+    const res = await loginUser({ email, password })
+    const { error, token, expiration, userName, name } = res
+    if (error) return setError(error)
+    const userCredentials = { token, expiration, userName, name }
+    setAuth(userCredentials)
+    localStorage.setItem('credentials', JSON.stringify(userCredentials))
     navigate('/home')
   }
   return (
@@ -32,6 +32,7 @@ const Login = () => {
           <InputEmail login={true} />
           <InputPassword login={true} />
           <input type="submit" value="Log In" className=' cursor-pointer  border-blue-600 rounded-full border-2 p-2' />
+          <span className='text-red-600 text-sm text-center'>{error || ''}</span>
         </form>
       </main>
     </div>

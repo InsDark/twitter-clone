@@ -8,11 +8,14 @@ const app = express()
 
 const apolloServer = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers, 
+    context: ({req}) => {
+        return req
+    }
 })
 
 await apolloServer.start()
 apolloServer.applyMiddleware({app})
 
 app.use(authRoutes)
-app.listen(8000)
+app.listen(8080)

@@ -2,21 +2,21 @@ import React, { useRef, useState } from 'react'
 import { createTweet } from '../../../api/mutations/createTweet'
 import { authStore } from '../../state/auth'
 import { toastStore } from '../../state/toast'
-import {useDebouncedCallback} from 'use-debounce'
 const TweetMaker = () => {
-    const { credentials: { userName } } = authStore(state => state.auth)
+    const { credentials } = authStore(state => state.auth)
+    const {userName, token} = credentials
     const [tweet, setTweet] = useState('')
     const tweetContent = useRef(null)
     const [tweetLng, setTweetLng] = useState(0)
     const [rows, setRows] = useState(2)
     const toast = toastStore(state => state.toast)
-    const handleChange = useDebouncedCallback((e) => {
+    const handleChange = (e) => {
         if (tweet.length >= 60) setRows(2)
         if (tweet.length >= 120) setRows(3)
         if (tweet.length >= 160) setRows(4)
         setTweetLng(e.target.value.length)
         setTweet(e.target.value)
-    }, 1000)
+    }
     return (
         <div className='border-gray-700 border-t border-b py-4 h-auto px-5  ' >
             <form onSubmit={async (e) => {
@@ -25,7 +25,7 @@ const TweetMaker = () => {
                 if (tweet.length > 200 ) {
                     return alert('The tweet should be no more than 200 characters')
                 }
-                const res = await createTweet({ date: `${Date.now()}`, content: tweet, maker: userName })
+                const res = await createTweet({tweetInput: { date: `${Date.now()}`, content: tweet, maker: userName}, token})
                 if (res) {
                     setTweet('')
                     setTweetLng(0)

@@ -7,6 +7,7 @@ import Register from './Routes/Register'
 import { authStore } from './state/auth'
 import Main from './Routes/Main'
 import { getToken } from '../api/queries/getToken'
+import 'dotenv'
 
 const ProtectRoute = ({ element }) => {
   const setAuth = authStore(state => state.setAuth)

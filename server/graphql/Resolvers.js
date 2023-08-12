@@ -1,25 +1,9 @@
 import { db } from "../db/config.js"
 import { hashSync, compareSync } from 'bcrypt'
 import { ObjectId } from "mongodb"
+import { validateToken } from "../helpers/validateToken.js"
 export const resolvers = {
     Query: {
-        getAuth: async (_, { email, password }) => {
-            try{
-
-                const userDB = await db.collection('users').findOne({ email })
-                if (!userDB) return {message: 'The user doesnt exist'}
-                const { passwordHash, userName } = userDB
-                const validPass = compareSync(password, passwordHash)
-                if (!validPass) return {message: 'The credentials are not valid'}
-                const token = hashSync(`${passwordHash}${email}`, 10)
-                const expiration = Date.now() + 43200000
-                await db.collection('tokens').insertOne({ token, expiration })
-                return { token, expiration, userName }
-            } catch (e) {
-                console.log(e)
-                return {error: e}
-            }
-        },
         user: async (_, args) => {
             const userResponse = await db.collection('users').find({ userName: args.userName }).toArray()
             return userResponse[0]
@@ -49,7 +33,7 @@ export const resolvers = {
             }
             const { passwordHash, userName, name } = user
             const passwordVerify = await compareSync(password, passwordHash)
-            if (!passwordVerify) return { email: email }
+            if (!passwordVerify) return { error: "The credentials are not correct" }
             const token = hashSync(`${userName}${email}`, 12)
             const expiration = Date.now() + 43200000
             const access_token = { token, expiration }
@@ -110,11 +94,15 @@ export const resolvers = {
             return 'The user was not found'
 
         },
-        createTweet: async(_, {tweetInput}) => {
+        createTweet: async(_, {tweetInput}, context) => {
+            const res = await validateToken({context, db})          
+            if(!res) return {message: 'You are not allowed to create a tweet'}
             await db.collection('tweets').insertOne({...tweetInput, likes: []})
             return {message: "The tweet was created successfully"}   
         },
-        likeTweet : async (_, {tweetInfo : {_id, userName, type}}) => {
+        likeTweet : async (_, {tweetInfo : {_id, userName, type}}, context) => {
+            const validToken = await validateToken({context, db})  
+            if(!validToken) return {message: "You are not allowed to do this action"}
             const mongoID = new ObjectId(_id)
             const res = await db.collection('tweets').findOne({_id : mongoID})
 
