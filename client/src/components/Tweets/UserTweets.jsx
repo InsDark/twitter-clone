@@ -23,7 +23,7 @@ const UserTweets = ( {userName} ) => {
       setTweets(userTweets)
     }
     getUserTweets()
-  }, [])
+  }, [userName])
   return (
     <div className='flex flex-col gap-3 p-4'>
       {userExists ? <>{tweets.length == 0 ? <h2 className="text-center font-bold text-2xl p-4">This user has no tweets</h2> : tweets.map(tweet => <Tweet key={tweet._id}  content={tweet}/>)}</> : <>

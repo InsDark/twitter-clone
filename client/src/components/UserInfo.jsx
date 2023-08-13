@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getUserProfile } from '../../api/queries/getUserProfile'
+import { getUser } from '../../api/queries/getUser'
 import { authStore } from '../state/auth'
 import { profileStore } from '../state/profileInfo'
 import FollowBtn from './Buttons/FollowBtn'
@@ -11,7 +11,7 @@ const UserInfo = () => {
     const { name, followers, following } = userInfo
     useEffect(() => {
         (async () => {
-            const { data: { user } } = await getUserProfile(userID)
+            const { data: { user } } = await getUser({userName: userID, get : ['name', 'followers', 'following']})
             if (!user) return setUserExist(false)
             setUserInfo(user)
             setUserExist(true)
@@ -29,7 +29,7 @@ const UserInfo = () => {
                         </div>
                         {
                             userName == userID ? <button className=' hover:bg-slate-900 text-white border h-fit rounded-full py-2 px-5 font-semibold'>Edit Profile</button> :
-                                <FollowBtn followTo={{ userID, userName }} style={'border text-white h-fit rounded-full py-2 px-5 font-semibold'} />
+                                <FollowBtn userID={ userID  } style={'border text-white h-fit rounded-full py-2 px-5 font-semibold'} />
                         }
                     </div>
                     <div className='px-3 pt-1 pb-3'>

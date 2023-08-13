@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getUsers } from '../../api/queries/getUsers'
+import { getUser } from '../../api/queries/getUser'
 import {Link} from 'react-router-dom'
 import {useDebouncedCallback} from 'use-debounce'
 
@@ -12,7 +12,7 @@ const UserSearcher = () => {
       const userName = e.target.value
       if(!userName) return 
       setUserName(userName)
-      const {data : {user}} = await getUsers(userName)
+      const {data : {user}} = await getUser({userName, get: ['name', 'userName']})
       if(!user) {
           setVisible(false)
           return

@@ -1,11 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { authStore } from '../state/auth'
 import { FaHome, FaBookmark, FaUser, FaTwitter, FaEllipsisH, FaHashtag, FaPlus } from 'react-icons/fa'
-import userDataStore from '../state/userData'
 const UserBar = () => {
-    const { auth: { credentials: { userName } } } = authStore(state => state)
-    const { name } = userDataStore(state => state)
+    const {userName, name}  = JSON.parse( localStorage.getItem('credentials'))
     return (
         <section className='flex text-2xl flex-col text-center h-screen sticky top-0   justify-around mx-auto '>
 
