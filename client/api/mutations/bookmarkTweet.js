@@ -1,8 +1,8 @@
-export const bookmarkTweet = async ({ userName, _id, type }) => {
+export const bookmarkTweet = async ({ userName, _id, type, token }) => {
     const req = await fetch(import.meta.env.VITE_SERVER_URL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({

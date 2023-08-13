@@ -56,7 +56,9 @@ export const resolvers = {
 
     },
     Mutation: {
-        followTo: async (_, { from, to, type }) => {
+        followTo: async (_, { from, to, type }, context) => {
+            const validToken = await validateToken({context, db})
+            if(!validToken) return {message: "You are not allowed"}
             if(type == 'unfollow') {
                 const [{following}]= await db.collection('users').find({userName: from}).toArray()
                 const newFollowing = following.filter(follow => follow !== to)
@@ -66,8 +68,9 @@ export const resolvers = {
                 await db.collection('users').updateOne({userName: to}, {$set : {followers : newFollowers}})
                 return { status: '200', message: "Unfollow okay" }
             }
-            await db.collection('users').updateOne({ userName: from }, { $push: { following: to } })
-            await db.collection('users').updateOne({ userName: to }, { $push: { followers: from } })
+            const res1 = await db.collection('users').updateOne({ userName: from }, { $push: { following: to } })
+            const res2 = await db.collection('users').updateOne({ userName: to }, { $push: { followers: from } })
+            console.log(res1, res2, from, to)
             return { status: '200', message: "Following okay" }
         },
         createUser: async (_, args) => {
@@ -117,7 +120,9 @@ export const resolvers = {
             await db.collection('tweets').findOneAndUpdate({_id: mongoID}, {$set: {likes}})
             return {message: "You dislike this tweet"}
         },
-        bookmarkTweet: async(_, {bookmarkInfo : {userName, _id, type}}) => {
+        bookmarkTweet: async(_, {bookmarkInfo : {userName, _id, type}}, context) => {
+            const validToken = await validateToken({context, db})
+            if(!validToken) return {message: "You are not allowed"}
             const mongoID = new ObjectId(_id)
             if(type =='bookmark') {
                 await db.collection('tweets').findOneAndUpdate({_id: mongoID }, {$push : {bookmarks : userName}})

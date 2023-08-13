@@ -31,7 +31,7 @@ const SideBar = () => {
                   <span className='text-gray-500'>@{user.userName}</span>
                 </div>
               </div>
-              <FollowBtn followTo={user.userName} />
+              <FollowBtn userID={user.userName} />
             </div>
           )))}
         </div>
