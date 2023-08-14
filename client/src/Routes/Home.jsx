@@ -11,10 +11,10 @@ const Home = () => {
     setToast(toast)
     
     return (
-        <main className='md:card mobile overflow-hidden bg-black text-white min-h-screen'>
+        <main className='md:card mobile bg-black text-white min-h-screen'>
             <UserBar />
             <section className='border max-w-screen  border-gray-700  '>
-                <h2 className='text-2xl font-bold'>Home</h2>
+                <h2 className='p-3 text-2xl font-bold'>Home</h2>
                 <TweetMaker />
                 <TweetsContainer />
             </section>

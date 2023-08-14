@@ -6,6 +6,11 @@ const InputPassword = ({validate}) => {
     const {  updatePassword } = formStore(state => state)
     const [validPassword, setValidPassword] = useState(null)
     const [passwordMsg, setPasswordMsg] = useState('')
+
+    const handlePasswordChange = (e) => {
+        updatePassword(e.target.value)
+    }
+
     const checkPassword = useDebouncedCallback((e) => {
         updatePassword(e.target.value)
         setValidPassword(false)
@@ -23,7 +28,7 @@ const InputPassword = ({validate}) => {
 
     return (
         <div className='flex flex-col'>
-            <input placeholder='Password' name='user-name' onChange={(e) => checkPassword(e)} type="password" className={`w-full outline-none border-2 rounded pl-3 p-3 bg-black ${validPassword == null ? 'border-gray-500' : (!validPassword ? "border-red-600" : ' border-blue-600')}`} />
+            <input placeholder='Password' name='user-name'  onChange={(e) =>   validate ? checkPassword(e) : handlePasswordChange(e) } type="password" className={`w-full outline-none border-2 rounded pl-3 p-3 bg-black ${validPassword == null ? 'border-gray-500' : (!validPassword ? "border-red-600" : ' border-blue-600')}`} />
             <span className='text-red-600 text-sm'>{validPassword || passwordMsg}</span>
 
         </div>

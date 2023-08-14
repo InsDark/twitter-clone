@@ -30,7 +30,7 @@ const Login = () => {
         <h1 className='text-2xl font-bold text-center'>Sign in to Twitter</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4' >
           <InputEmail login={true} />
-          <InputPassword login={true} />
+          <InputPassword validate={false}  />
           <input type="submit" value="Log In" className=' cursor-pointer  border-blue-600 rounded-full border-2 p-2' />
           <span className='text-red-600 text-sm text-center'>{error || ''}</span>
         </form>

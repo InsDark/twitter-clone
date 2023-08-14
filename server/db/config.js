@@ -1,8 +1,6 @@
-
 import {MongoClient, ServerApiVersion} from 'mongodb'
 const connectDB = async( ) => {
     try {
-
         const client = new MongoClient(process.env.MONGODB_URI, {
             serverApi: {
                 version: ServerApiVersion.v1,
@@ -15,7 +13,6 @@ const connectDB = async( ) => {
         const db = client.db('twitter')
         return db
     } catch (e)  {
-        console.log(e)
         return e
     }
 }

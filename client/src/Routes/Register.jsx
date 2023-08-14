@@ -28,7 +28,7 @@ const Register = () => {
             return setValidateMsg(error)
         }
         setAuth([{ name, userName, email, token, expiration }])
-        localStorage.setItem('credentials', JSON.stringify([{ name, userName, email, token, expiration }]))
+        localStorage.setItem('credentials', JSON.stringify({ name, userName, token, expiration }))
         navigate('/home')
 
     }
@@ -41,7 +41,7 @@ const Register = () => {
                     <InputName />
                     <InputUserName />
                     <InputEmail />
-                    <InputPassword />
+                    <InputPassword validate={true} />
                     <input type="submit" value="Sign Up" className='bg-blue-500 cursor-pointer font-bold rounded-full p-2' />
                 </form>
                 <span className='text-red-600 text-sm'>{validateMsg}</span>

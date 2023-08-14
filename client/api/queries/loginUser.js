@@ -1,4 +1,5 @@
 export const loginUser = async ({email, password}) => {
+
     const req = await fetch(import.meta.env.VITE_SERVER_URL, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -14,6 +15,5 @@ export const loginUser = async ({email, password}) => {
         }`})
     })
     const {data : {loginUser}} = await req.json()
-    
     return loginUser
 }

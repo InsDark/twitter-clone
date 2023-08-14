@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaHome, FaBookmark, FaUser, FaTwitter, FaEllipsisH, FaHashtag, FaPlus } from 'react-icons/fa'
+import { FaHome, FaBookmark, FaUser, FaTwitter, FaEllipsisH, FaPlus } from 'react-icons/fa'
 const UserBar = () => {
     const {userName, name}  = JSON.parse( localStorage.getItem('credentials'))
     return (
-        <section className='flex text-2xl flex-col text-center h-screen sticky top-0   justify-around mx-auto '>
+        <section className='flex text-2xl flex-col text-center h-screen sticky top-0 justify-around mx-auto '>
 
-            <Link to='/home' className='py-2 px-5'><FaTwitter /></Link>
+            <span className='py-2 px-5'><FaTwitter /></span>
 
             <Link to='/home' className=' hover:bg-gray-800 w-fit py-2 px-5 rounded-full flex items-center gap-4'>
                 <FaHome />
