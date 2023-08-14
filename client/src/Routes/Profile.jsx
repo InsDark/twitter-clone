@@ -5,10 +5,13 @@ import SideBar from '../components/SideBar'
 import UserBar from '../components/UserBar'
 import UserInfo from '../components/UserInfo'
 import UserTweets from '../components/Tweets/UserTweets'
+import ModalComponent from '../components/Modal'
+import { modalStore } from '../state/modal'
 const Profile = () => {
     const {userID} = useParams()
     document.title = userID + " Profile"
     const navigate = useNavigate()
+    const {isOpen, modalComponent} =modalStore(state => state)
     return (
         <main className='md:card mobile bg-black text-white min-h-screen'>
             <UserBar />
@@ -27,6 +30,7 @@ const Profile = () => {
                 <UserTweets userName={userID} />
             </section>
             <SideBar />
+            <ModalComponent isOpen={isOpen} contentElement={modalComponent}/>
         </main>
     )
 }

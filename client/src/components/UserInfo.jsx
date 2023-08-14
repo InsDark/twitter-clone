@@ -3,12 +3,18 @@ import { useParams } from 'react-router-dom'
 import { getUser } from '../../api/queries/getUser'
 import { authStore } from '../state/auth'
 import { profileStore } from '../state/profileInfo'
+import  {modalStore} from '../state/modal'
 import FollowBtn from './Buttons/FollowBtn'
+import ProfileEditor from './ProfileEditor'
+
+
 const UserInfo = () => {
     const { credentials: { userName } } = authStore(state => state.auth)
     const { userID } = useParams()
     const { setUserInfo, userInfo, userExists, setUserExist } = profileStore(state => state)
+    const {setIsOpen, setComponent} = modalStore(state => state)
     const { name, followers, following } = userInfo
+    
     useEffect(() => {
         (async () => {
             const { data: { user } } = await getUser({userName: userID, get : ['name', 'followers', 'following']})
@@ -28,7 +34,7 @@ const UserInfo = () => {
 
                         </div>
                         {
-                            userName == userID ? <button className=' hover:bg-slate-900 text-white border h-fit rounded-full py-2 px-5 font-semibold'>Edit Profile</button> :
+                            userName == userID ? <button onClick={() => {setIsOpen(true); setComponent(<ProfileEditor/>) }}  className=' hover:bg-slate-900 text-white border h-fit rounded-full py-2 px-5 font-semibold'>Edit Profile</button> :
                                 <FollowBtn userID={ userID  } style={'border text-white h-fit rounded-full py-2 px-5 font-semibold'} />
                         }
                     </div>
