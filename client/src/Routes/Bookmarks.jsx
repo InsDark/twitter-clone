@@ -6,7 +6,7 @@ const Bookmarks = () => {
   return (
     <main className='md:card mobile bg-black text-white min-h-screen'>
       <UserBar/>
-      <section className='border-l border-r border-gray-600'>
+      <section className='border-l border-r flex flex-col border-gray-600'>
           <h1 className='p-3 text-xl border-b font-bold border-gray-600'>Bookmarks</h1>
           <TweetsBookmarked/>
       </section>

@@ -3,6 +3,8 @@ import { getToken } from '../../api/queries/getToken'
 
 export const CheckAuth = ({ element }) => {
     const localAuth = JSON.parse(localStorage.getItem('credentials'))
+    if(!localAuth) return element
+    
     const { expiration, token } = localAuth
 
     if(!expiration || !token) return element

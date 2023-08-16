@@ -31,8 +31,8 @@ const UserBar = () => {
             <div className='flex gap-3 hover:bg-gray-900 cursor-pointer rounded-full min-w-fit  items-center p-2'>
                 <img className=' w-10 h-15 ' src={`https://api.dicebear.com/6.x/bottts/svg?seed=${userName}`} alt={`${userName}-profile-picture`} />
                 <div className='w-fit hidden md:block'>
-                    <p className='text-base'> {name}</p>
-                    <p className='text-base text-gray-500'>@{userName}</p>
+                    <p className='text-base'> {name.length > 14 ? name.substr(0,14) + '....' : name}</p>
+                    <p className='text-base text-gray-500'>@{userName.length > 14 ? userName.substr(0,14) + '...' : userName}</p>
                 </div>
                 <FaEllipsisH className='hidden md:block' />
             </div>
