@@ -15,10 +15,11 @@ export const ProtectRoute = ({ element }) => {
       localStorage.removeItem('credentials')
       return <Navigate to={'/login'} />
     }
-  
+    
     getToken({token})
-      .then(res => {
-        if(!res.getToken.token) {
+    .then(res =>{
+        if(!res.getToken?.token) {
+          localStorage.removeItem('credentials')
           return navigate('/login')
         }
       })

@@ -12,12 +12,19 @@ const Login = () => {
   const { email, password } = formStore(state => state)
   const { setAuth } = authStore(state => state)
   const [error, setError] = useState()
+  const [onLogin, setOnLogin] = useState(false)
   const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setOnLogin(true)
     const res = await loginUser({ email, password })
+    setOnLogin(false)
     const { error, token, expiration, userName, name } = res
-    if (error) return setError(error)
+    if (error) {
+      setOnLogin(false)
+      setError(error)
+      return
+    }
     const userCredentials = { token, expiration, userName, name }
     setAuth(userCredentials)
     localStorage.setItem('credentials', JSON.stringify(userCredentials))
@@ -30,8 +37,8 @@ const Login = () => {
         <h1 className='text-2xl font-bold text-center'>Sign in to Twitter</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4' >
           <InputEmail login={true} />
-          <InputPassword validate={false}  />
-          <input type="submit" value="Log In" className=' cursor-pointer  border-blue-600 rounded-full border-2 p-2' />
+          <InputPassword validate={false} />
+          <input disabled={onLogin} type="submit" value={onLogin ? "Login...."  : "Log In"} className={ `border-blue-600 border-2  p-2 rounded-full ${ onLogin ? 'cursor-default text-gray-500  ' : 'cursor-pointer'}` } />
           <span className='text-red-600 text-sm text-center'>{error || ''}</span>
         </form>
       </main>

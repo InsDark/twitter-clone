@@ -15,6 +15,7 @@ const Register = () => {
     const setAuth = authStore(state => state.setAuth)
     const { name, password, email, userName } = formStore(state => state)
     const [validateMsg, setValidateMsg] = useState('')
+    const [onRegister, setOnRegister] = useState(false)
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !userName || !password || !name) {
@@ -22,7 +23,9 @@ const Register = () => {
             return
         }
         setValidateMsg('')
+        setOnRegister(true)
         const res = await createUser({name, email, userName, password})
+        setOnRegister(false)
         const {data : {createUser: {error, token, expiration}}} = res 
         if (!token) {
             return setValidateMsg(error)
@@ -42,7 +45,7 @@ const Register = () => {
                     <InputUserName />
                     <InputEmail />
                     <InputPassword validate={true} />
-                    <input type="submit" value="Sign Up" className='bg-blue-500 cursor-pointer font-bold rounded-full p-2' />
+                    <input type="submit" disabled={onRegister} value={ onRegister ? "Signing...." : "Sign Up"} className={` cursor-pointer font-bold rounded-full p-2 ${ onRegister ? 'cursor-default text-gray-500 bg-blue-300  ' : 'cursor-pointer bg-blue-600'} `} />
                 </form>
                 <span className='text-red-600 text-sm'>{validateMsg}</span>
             </main>
