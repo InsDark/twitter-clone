@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { FaHome, FaBookmark, FaUser, FaTwitter, FaEllipsisH, FaPlus } from 'react-icons/fa'
+import { Link,  useNavigate } from 'react-router-dom'
+import { FaHome, FaBookmark, FaUser, FaTwitter, FaPlus } from 'react-icons/fa'
+import {LuLogOut} from 'react-icons/lu'
 import { modalStore } from '../state/modal'
 import TweetMaker from './Tweets/TweetMaker'
 
@@ -8,6 +9,7 @@ import TweetMaker from './Tweets/TweetMaker'
 const UserBar = () => {
     const { userName, name } = JSON.parse(localStorage.getItem('credentials'))
     const { setIsOpen, setComponent } = modalStore(state => state)
+    const navigate = useNavigate()
     return (
         <section className='flex text-2xl flex-col text-center h-screen sticky top-0 justify-around mx-auto '>
 
@@ -34,7 +36,10 @@ const UserBar = () => {
                     <p className='text-base'> {name.length > 14 ? name.substr(0,14) + '....' : name}</p>
                     <p className='text-base text-gray-500'>@{userName.length > 14 ? userName.substr(0,14) + '...' : userName}</p>
                 </div>
-                <FaEllipsisH className='hidden md:block' />
+                <LuLogOut onClick={async() => {
+                    localStorage.removeItem('credentials')
+                    navigate('/login')
+                }} className='hidden md:block hover:text-blue-400' />
             </div>
             
         </section>

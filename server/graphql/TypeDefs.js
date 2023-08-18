@@ -6,12 +6,10 @@ scalar Likes,
 
 input  TweetInput {
     content: String,
-    date: String,
-    maker: String,
+    date: String
 }
 
 input BookmarkInfo {
-    userName : String,
     _id : String,
     type: String
 }
@@ -65,7 +63,7 @@ type Query {
 }
 
 type Mutation {
-    followTo (from : String, to: String, type : String) : Notification
+    followTo ( to: String, type : String) : Notification
     createUser(name: String, email: String, userName: String, password: String) : User
     deleteUser(userName: String) : String,
     createTweet (tweetInput : TweetInput ) : Notification,

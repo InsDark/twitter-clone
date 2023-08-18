@@ -1,4 +1,4 @@
-export const bookmarkTweet = async ({ userName, _id, type, token }) => {
+export const bookmarkTweet = async ({  _id, type, token }) => {
     const req = await fetch(import.meta.env.VITE_SERVER_URL, {
         method: 'POST',
         headers: {
@@ -8,7 +8,7 @@ export const bookmarkTweet = async ({ userName, _id, type, token }) => {
         body: JSON.stringify({
             query: `
         mutation {
-            bookmarkTweet (bookmarkInfo : {userName: "${userName}", _id : "${_id}", type: "${type}"}) {
+            bookmarkTweet (bookmarkInfo : { _id : "${_id}", type: "${type}"}) {
                 message
             }
         }`})

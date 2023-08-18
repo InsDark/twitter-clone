@@ -10,13 +10,13 @@ export const createTweet = async ({ tweetInput, token }) => {
         },
 
         body: JSON.stringify({
-            query: ` mutation ($content : String, $date: String, $maker: String)  {
-                createTweet (tweetInput: {content: $content, date: $date, maker: $maker}) {
+            query: ` mutation ($content : String, $date: String)  {
+                createTweet (tweetInput: {content: $content, date: $date}) {
                     message,
                     status
                 }
             }`,
-            variables: { content, date, maker },
+            variables: { content, date },
         })
     })
     const res = await req.json()

@@ -22,7 +22,7 @@ const SideBar = () => {
       <div className='bg-gray-900 p-4 rounded-2xl'>
         <h2 className='text-xl font-bold pb-4'>Who to follow</h2>
         <div className='gap-3 flex flex-col'>
-          {toFollow.map((user => (
+          {toFollow.length > 0 ? toFollow.map((user => (
             <div key={user.userName} className='flex gap-2 justify-between items-center'>
               <div className='flex  gap-2 items-center'>
                 <img className='w-10 h-15 ' src={`https://api.dicebear.com/6.x/bottts/svg?seed=${user.userName}`} alt={`${user.userName}-profilePicture`} />
@@ -33,7 +33,7 @@ const SideBar = () => {
               </div>
               <FollowBtn userID={user.userName} />
             </div>
-          )))}
+          ))) : <h3 className='text-gray-500'>No users to follow</h3>}
         </div>
       </div>
         <ToastContainer
