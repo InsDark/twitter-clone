@@ -32,14 +32,14 @@ export const resolvers = {
                 if (!user) {
                     return { error: 'Credentials are not correct' }
                 }
-                const { passwordHash, userName, name } = user
+                const { passwordHash, userName, name, coverPicture, profilePicture } = user
                 const passwordVerify = compareSync(password, passwordHash)
                 if (!passwordVerify) return { error: "The credentials are not correct" }
                 const token = hashSync(`${userName}${email}`, 12)
                 const expiration = Date.now() + 43200000
                 const access_token = { token, expiration, userName }
                 await db.collection('tokens').insertOne(access_token)
-                return { email: email, ...access_token, name, userName }
+                return { email: email, ...access_token, name, userName, coverPicture, profilePicture }
             } catch (e) {
                 return { error: e.message }
             }

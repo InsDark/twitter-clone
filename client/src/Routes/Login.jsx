@@ -19,13 +19,13 @@ const Login = () => {
     setOnLogin(true)
     const res = await loginUser({ email, password })
     setOnLogin(false)
-    const { error, token, expiration, userName, name } = res
+    const { error, token, expiration, userName, name, coverPicture,profilePicture } = res
     if (error) {
       setOnLogin(false)
       setError(error)
       return
     }
-    const userCredentials = { token, expiration, userName, name }
+    const userCredentials = { token, expiration, userName, name, coverPicture, profilePicture }
     setAuth(userCredentials)
     localStorage.setItem('credentials', JSON.stringify(userCredentials))
     navigate('/home')

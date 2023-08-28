@@ -4,7 +4,7 @@ import { authStore } from '../../state/auth'
 import { toastStore } from '../../state/toast'
 const TweetMaker = () => {
     const { credentials } = authStore(state => state.auth)
-    const {userName, token} = credentials
+    const {userName, token, profilePicture} = credentials
     const [tweet, setTweet] = useState('')
     const tweetContent = useRef(null)
     const [tweetLng, setTweetLng] = useState(0)
@@ -37,7 +37,7 @@ const TweetMaker = () => {
             }} className=' flex flex-col gap-2 w-full resize-none outline-none bg-black text-white ' >
                 <div className='flex gap-4'>
                     
-                    <img src={`https://api.dicebear.com/6.x/bottts/svg?seed=${userName}&backgroundColor=000000`} className='w-11 h-9' alt={`${userName}-profile-picture`} />
+                    <img src={ profilePicture || `https://api.dicebear.com/6.x/bottts/svg?seed=${userName}&backgroundColor=000000`} className='w-11 h-9 rounded-full' alt={`${userName}-profile-picture`} />
                     <textarea cols={10} rows={rows} onChange={(e) => handleChange(e)} placeholder="What's happening?"name='tweet-content' ref={tweetContent} className='outline-none  border-none bg-black max-w-[10] text-xl w-full  text-white' />
                 </div>
                 <div className='items-center flex justify-end gap-4'>

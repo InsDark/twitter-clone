@@ -4,10 +4,14 @@ import { FaHome, FaBookmark, FaUser, FaTwitter, FaPlus } from 'react-icons/fa'
 import {LuLogOut} from 'react-icons/lu'
 import { modalStore } from '../state/modal'
 import TweetMaker from './Tweets/TweetMaker'
+import { authStore } from '../state/auth'
 
 
 const UserBar = () => {
     const { userName, name } = JSON.parse(localStorage.getItem('credentials'))
+    const {auth} = authStore(state => state)
+    const {credentials} = auth
+    const {profilePicture} = credentials
     const { setIsOpen, setComponent } = modalStore(state => state)
     const navigate = useNavigate()
     return (
@@ -31,7 +35,7 @@ const UserBar = () => {
             <button onClick={() => {setIsOpen(true); setComponent(<TweetMaker/>)}} className='bg-blue-500 justify-center flex rounded-full text-xl p-2'><span className='hidden md:block'>Tweet</span><span className='md:hidden'><FaPlus /></span></button>
 
             <div className='flex gap-3 hover:bg-gray-900 cursor-pointer rounded-full min-w-fit  items-center p-2'>
-                <img className=' w-10 h-15 ' src={ `https://api.dicebear.com/6.x/bottts/svg?seed=${userName}`} alt={`${userName}-profile-picture`} />
+                <img className=' w-10 h-15 rounded-full' src={ profilePicture || `https://api.dicebear.com/6.x/bottts/svg?seed=${userName}`} alt={`${userName}-profile-picture`} />
                 <div className='w-fit hidden md:block'>
                     <p className='text-base'> {name.length > 14 ? name.substr(0,14) + '....' : name}</p>
                     <p className='text-base text-gray-500'>@{userName.length > 14 ? userName.substr(0,14) + '...' : userName}</p>

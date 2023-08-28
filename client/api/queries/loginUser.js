@@ -10,7 +10,9 @@ export const loginUser = async ({email, password}) => {
                 expiration,
                 userName,
                 error,
-                name            
+                name,
+                profilePicture,
+                coverPicture            
             }
         }`})
     })
