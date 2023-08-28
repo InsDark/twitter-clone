@@ -13,7 +13,11 @@ input BookmarkInfo {
     _id : String,
     type: String
 }
-
+input UserData {
+    name: String,
+    profilePicture: String,
+    coverPicture: String
+}
 type User { 
     error: String,
     name: String,
@@ -22,7 +26,9 @@ type User {
     token: String,
     expiration: String,
     followers: [Follows],
-    following: [Follows]
+    following: [Follows],
+    profilePicture: String, 
+    coverPicture: String
     },
 
 type Tweet {
@@ -68,7 +74,8 @@ type Mutation {
     deleteUser(userName: String) : String,
     createTweet (tweetInput : TweetInput ) : Notification,
     likeTweet (tweetInfo : TweetInfo) : Notification,
-    bookmarkTweet (bookmarkInfo : BookmarkInfo) : Notification
+    bookmarkTweet (bookmarkInfo : BookmarkInfo) : Notification,
+    updateUser (userData: UserData) : Notification
 }
 
 `

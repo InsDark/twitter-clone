@@ -61,11 +61,11 @@ export const resolvers = {
 
     },
     Mutation: {
-        followTo: async (_, {  to, type }, context) => {
+        followTo: async (_, { to, type }, context) => {
             const validToken = await validateToken({ context, db })
             if (!validToken) return { message: "You are not allowed" }
-            
-            const {userName} = validToken
+
+            const { userName } = validToken
 
             if (type == 'unfollow') {
                 const [{ following }] = await db.collection('users').find({ userName }).toArray()
@@ -136,10 +136,10 @@ export const resolvers = {
             await db.collection('tweets').findOneAndUpdate({ _id: mongoID }, { $set: { likes } })
             return { message: "You dislike this tweet" }
         },
-        bookmarkTweet: async (_, { bookmarkInfo: {  _id, type } }, context) => {
+        bookmarkTweet: async (_, { bookmarkInfo: { _id, type } }, context) => {
             const validToken = await validateToken({ context, db })
             if (!validToken) return { message: "You are not allowed" }
-            const {userName} = validToken
+            const { userName } = validToken
             const mongoID = new ObjectId(_id)
             if (type == 'bookmark') {
                 await db.collection('tweets').findOneAndUpdate({ _id: mongoID }, { $push: { bookmarks: userName } })
@@ -149,6 +149,15 @@ export const resolvers = {
             const newBookmarks = bookmarks.filter(bookmark => bookmark !== userName)
             await db.collection('tweets').updateOne({ _id: mongoID }, { $set: { bookmarks: newBookmarks } })
             return { message: "UnBookmarked this tweet" }
+        },
+        updateUser: async (_, {userData: {name, profilePicture, coverPicture}}, context) => {
+            console.log(profilePicture, coverPicture)
+            if(!profilePicture || !coverPicture || !name) return {message: 'There was an error'}
+            const validToken = await validateToken({ context, db })
+            if(!validToken) return {message: 'Error'}
+            const res = await db.collection('users').updateOne({userName: validToken.userName}, {$set: {name, profilePicture, coverPicture}})
+            if(!res)return  {message: 'Something happened try again later'}
+            return {message : 'The user info was updated successfully'}
         }
     }
 }
